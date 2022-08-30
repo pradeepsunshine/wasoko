@@ -1,0 +1,40 @@
+<?php
+$reportData = $this->getReportData();
+if ($reportData):
+    ?>
+
+    <?php if (count($reportData) && $reportData['real']): ?>
+    <div class="report-location-date">
+        <?php foreach ($reportData['data'] as $report): ?>
+            <span class="report-date"><?= $report['date'] ?></span>
+            <h2 class="report-location">
+                <?= $report['city'] ?>, <?= ' ' . $report['country'] ?>
+            </h2>
+            <span><img src="<?= $report['img_url'] . ' ' ?>"></span>
+            <div class="temp-weather">
+                <span><?= $report['temp'] . '&#176C' ?></span>
+                <span><?= $report['weather_description'] ?></span>
+            </div>
+        <?php endforeach; ?>
+    </div>
+<?php endif; ?>
+    <?php if (count($reportData) && !$reportData['real']): ?>
+    <div class="report-location-date-history">
+        <table>
+            <?php foreach ($reportData['data'] as $report): ?>
+                <tr>
+                    <td><?= $report['date'] ?></td>
+                    <td>
+                        <?= $report['temp_min'] . '/' . $report['temp_max'] . '&#176C' ?>
+                    </td>
+                    <td><img src="<?= $report['img_url'] . ' ' ?>"></td>
+                    <td><?= $report['weather_description'] ?></td>
+                </tr>
+            <?php endforeach; ?>
+        </table>
+    </div>
+<?php endif; ?>
+<?php else: ?>
+    <div class="message error report-error"><?= __('No data found for the selected values.') ?></div>
+<?php endif; ?>
+

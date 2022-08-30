@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <link src="PradeepToptal_WeatherReport::css/report.css"/>
+    </head>
+    <update handle="weatherreport_index_index"/>
+    <body>
+        <referenceContainer name="content">
+            <block name="weatherreport.result" class="PradeepToptal\WeatherReport\Block\Report\Result"
+                   template="PradeepToptal_WeatherReport::reportresult.phtml" cacheable="false"/>
+        </referenceContainer>
+    </body>
+</page>

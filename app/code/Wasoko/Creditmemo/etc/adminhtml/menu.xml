@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Wasoko_Creditmemo::wasoko_creditmemo_creditmemoitems" title="VAT Report - Credit Memo" module="Wasoko_Creditmemo"
+             sortOrder="9999" resource="Magento_Backend::content" parent="Magento_Sales::sales_operation"
+             action="wasoko_creditmemo/creditmemoitems/index"/>
+    </menu>
+</config>

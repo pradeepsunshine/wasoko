@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Sales\Model\Order\Pdf\Invoice"
+                type="Wasoko\Invoice\Rewrite\Magento\Sales\Model\Order\Pdf\Invoice"/>
+    <preference for="Magento\Sales\Model\Order\Pdf\Items\Invoice\DefaultInvoice"
+                type="Wasoko\Invoice\Rewrite\Magento\Sales\Model\Order\Pdf\Items\Invoice\DefaultInvoice"/>
+    <type name="Wasoko\Invoice\Model\ResourceModel\InvoiceItems\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">sales_invoice_item</argument>
+            <argument name="resourceModel" xsi:type="string">
+                Wasoko\Invoice\Model\ResourceModel\InvoiceItems
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="wasoko_invoice_invoiceitems_listing_data_source" xsi:type="string">
+                    Wasoko\Invoice\Model\ResourceModel\InvoiceItems\Grid\Collection
+                </item>
+            </argument>
+        </arguments>
+    </type>
+</config>

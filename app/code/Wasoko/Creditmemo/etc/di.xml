@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Sales\Model\Order\Pdf\Creditmemo"
+                type="Wasoko\Creditmemo\Rewrite\Magento\Sales\Model\Order\Pdf\Creditmemo"/>
+    <preference for="Magento\Sales\Model\Order\Pdf\Items\Creditmemo\DefaultCreditmemo"
+                type="Wasoko\Creditmemo\Rewrite\Magento\Sales\Model\Order\Pdf\Items\Creditmemo\DefaultCreditmemo"/>
+    <type name="Wasoko\Creditmemo\Model\ResourceModel\CreditmemoItems\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">sales_creditmemo_item</argument>
+            <argument name="resourceModel" xsi:type="string">
+                Wasoko\Creditmemo\Model\ResourceModel\CreditmemoItems
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="wasoko_creditmemo_creditmemoitems_listing_data_source" xsi:type="string">
+                    Wasoko\Creditmemo\Model\ResourceModel\CreditmemoItems\Grid\Collection
+                </item>
+            </argument>
+        </arguments>
+    </type>
+</config>

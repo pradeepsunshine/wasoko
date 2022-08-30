@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Wasoko\ZRAIntegration\Api\ZraInvoiceManagementInterface"
+                type="Wasoko\ZRAIntegration\Model\ZraInvoiceManagement"/>
+    <type name="Wasoko\ZRAIntegration\Logger\Handler">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+    <type name="Wasoko\ZRAIntegration\Logger\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">wasokoZraLogger</argument>
+            <argument name="handlers" xsi:type="array">
+                <item name="system" xsi:type="object">Wasoko\ZRAIntegration\Logger\Handler</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="syncinvoice" xsi:type="object">Wasoko\ZRAIntegration\Console\Command\SignInvoice</item>
+                <item name="syncmemo" xsi:type="object">Wasoko\ZRAIntegration\Console\Command\SyncMemo</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

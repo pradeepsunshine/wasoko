@@ -1,0 +1,22 @@
+form.form-report {
+    width: 47%;
+    float: left;
+    margin-right: 1%;
+    border: 1px solid #e4e4e4;
+    padding: 10px;
+    min-height: 235px;
+}
+.field.name.required {
+    margin-bottom: 10px;
+}
+.report-date{color: #eb6e4b;}
+.report-location-date{float: left;padding: 20px;}
+.report-location{font-weight:bold}
+.temp-weather{float: right;
+    margin-top: 11px;
+    font-size: 20px;}
+.report-location-date-history{float: right;padding: 20px;width:50%}
+.report-error{    float: left;
+    width: 93.5%;
+    text-align: center;
+    margin-top: 20px !important;}

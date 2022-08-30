@@ -1,0 +1,7 @@
+{
+    "sales_invoice": {
+        "column": {
+            "is_original_generated": true
+        }
+    }
+}

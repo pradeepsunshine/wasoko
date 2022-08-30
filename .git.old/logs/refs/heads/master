@@ -1,0 +1,14 @@
+0000000000000000000000000000000000000000 3598deec33e62077ae1515c22d4c8619185dcb5c Ahmad Khan <ahmad.khan@cbdmd.com> 1632637877 -0500	clone: from https://git.toptal.com/relja.damnjanovic/Pradeep-Mishra.git
+3598deec33e62077ae1515c22d4c8619185dcb5c 4f1e08bbf32d73943186fe4f61deb16307fd632a Ahmad Khan <ahmad.khan@cbdmd.com> 1632638057 -0500	commit: Test project module first commit with all features
+4f1e08bbf32d73943186fe4f61deb16307fd632a 839f2f32003dfb82ffd088aef0d8203bebd2b684 Ahmad Khan <ahmad.khan@cbdmd.com> 1632665369 -0500	commit: Added multi page PDF, CSS modification, Try catch, country wrong auto selection
+839f2f32003dfb82ffd088aef0d8203bebd2b684 58667067e310134f181c656aef5f1e10521a25b1 Pradeep <pradeep38mail@gmail.com> 1632724305 -0500	commit (amend): Added multi page PDF, CSS modification, Try catch, country wrong auto selection
+58667067e310134f181c656aef5f1e10521a25b1 eb79b616fe86b75d9914586a3ec68fbcf2b8cdb6 Pradeep <pradeep38mail@gmail.com> 1632724642 -0500	commit (amend): Added multi page PDF, CSS modification, Try catch, country wrong auto selection
+eb79b616fe86b75d9914586a3ec68fbcf2b8cdb6 94a4864f69892b3572064aeab9dc18ad205e3b82 Pradeep <pradeep38mail@gmail.com> 1632726551 -0500	commit: Added weather report link to footer
+94a4864f69892b3572064aeab9dc18ad205e3b82 cbbcaf0c41db636ba3520b6ca04b2a07d2fece03 Pradeep <pradeep38mail@gmail.com> 1632726627 -0500	pull origin master: Merge made by the 'recursive' strategy.
+cbbcaf0c41db636ba3520b6ca04b2a07d2fece03 0b8fa911ba861be98b14db84bdf496a1c20bca8b Pradeep <pradeep38mail@gmail.com> 1632728378 -0500	commit: Removed restore, changed API path, added default value for config URL
+0b8fa911ba861be98b14db84bdf496a1c20bca8b 80b48cc23c66f74c510cc11d0c4fe5db2d6afb7e Pradeep <pradeep38mail@gmail.com> 1632729205 -0500	commit: Corrected values as Magento was not expecteting another config tag
+80b48cc23c66f74c510cc11d0c4fe5db2d6afb7e 5b469fc978a8bee8ac9af80f8d8d2b335f15b055 Pradeep <pradeep38mail@gmail.com> 1632731353 -0500	commit: Adde dynamic name to the PDF files to make it unique
+5b469fc978a8bee8ac9af80f8d8d2b335f15b055 60d446cc1d15417f9f276a9562b97b90f1461ace Pradeep <pradeep38mail@gmail.com> 1632731431 -0500	commit: refactor
+60d446cc1d15417f9f276a9562b97b90f1461ace a77626f65acfdf8fd8836133257b96857236b3dd Pradeep <pradeep38mail@gmail.com> 1632731708 -0500	commit: refactor
+a77626f65acfdf8fd8836133257b96857236b3dd ebf1903c6bcb13fb107615342790722648085521 Pradeep <pradeep38mail@gmail.com> 1632750633 -0500	commit: Refactoring: removed unused variables
+ebf1903c6bcb13fb107615342790722648085521 f644b2899d7fb5ddc2735448074a793c550a9134 Pradeep <pradeep38mail@gmail.com> 1632751187 -0500	commit: Refactoring: added magento datetime object instead of php

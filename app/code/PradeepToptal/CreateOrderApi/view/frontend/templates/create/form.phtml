@@ -1,0 +1,162 @@
+<?php if ($block->isAuthorized()): ?>
+    <div class="actions">
+        <button class="action list-pords primary" title="List All Products" type="button"
+                aria-label="List All Products">
+            <span>Click Here to List All Products</span>
+        </button>
+    </div>
+
+    <div class="actions">
+        <button class="action list-customers primary" title="List All Customers" type="button"
+                aria-label="List All Customers">
+            <span>Click here to List All Customers</span>
+        </button>
+    </div>
+
+    <form action="" id="create-order-form" method="POST">
+        <table>
+            <thead>
+            <tr>
+                <th>
+                    <span><?= $block->escapeHtml(__('Select')) ?></span>
+                </th>
+                <th>
+                    <span><?= $block->escapeHtml(__('Name')) ?></span>
+                </th>
+                <th>
+                    <span><?= $block->escapeHtml(__('SKU')) ?></span>
+                </th>
+                <th>
+                    <span><?= $block->escapeHtml(__('Qty')) ?></span>
+                </th>
+            </tr>
+            </thead>
+            <tbody class="products"></tbody>
+        </table>
+        <script type="text/x-magento-template" id="products-list">
+            <% _.each(datalist, function(product) { %>
+            <tr class="product-list">
+                <td>
+                    <% if (product.id) { %>
+                    <input class="uncheck" type="checkbox" name="prod[id][<%= product.id %>]" value="<%= product.id %>"/>
+                    <% } %>
+                </td>
+                <td>
+                    <% if (product.name) { %>
+                    <span> <%= product.name %></span>
+                    <% } %>
+                </td>
+                <td>
+                    <% if (product.sku) { %>
+                    <span><%= product.sku %></span>
+                    <% } %>
+                </td>
+                <td>
+                    <% if (product.id) { %>
+                    <input type="textbox" name="prod[qty][<%= product.id %>]" value="1"/>
+                    <% } %>
+                </td>
+            </tr>
+            <% }); %>
+        </script>
+        <table>
+            <thead>
+            <tr>
+                <th>
+                    <span><?= $block->escapeHtml(__('Select')) ?></span>
+                </th>
+                <th>
+                    <span><?= $block->escapeHtml(__('Name')) ?></span>
+                </th>
+                <th>
+                    <span><?= $block->escapeHtml(__('Email')) ?></span>
+                </th>
+            </tr>
+            </thead>
+            <tbody class="customers"></tbody>
+        </table>
+        <script type="text/x-magento-template" id="customers-list">
+            <% _.each(datalist, function(customer) { %>
+
+            <tr class="product-list">
+                <td>
+                    <% if (customer.id) { %>
+                    <input class="uncheck" type="radio" name="customer" value="<%= customer.id %>"/>
+                    <% } %>
+                </td>
+                <td>
+                    <% if (customer.firstname) { %>
+                    <span><%= customer.firstname %> <%= customer.lastname %></span>
+                    <% } %>
+                </td>
+                <td>
+                    <% if (customer.email) { %>
+                    <span><%= customer.email %></span>
+                    <% } %>
+                </td>
+            </tr>
+            <% }); %>
+        </script>
+        <div class="actions">
+            <button class="action submit-order primary" title="Submit Order" type="button"
+                    aria-label="Submit Order">
+                <span>Submit Order</span>
+            </button>
+        </div>
+    </form>
+    <script type="text/x-magento-init">
+    {
+        ".list-pords": {
+            "createTopTalOrders" : {
+                "template": "#products-list",
+                "url" : "<?= $block->getListProductsUrl() ?>",
+                "divclass" : ".products"
+            }
+        }
+    }
+
+
+    </script>
+    <script type="text/x-magento-init">
+    {
+        ".list-customers": {
+            "createTopTalOrders" : {
+                "template": "#customers-list",
+                "url" : "<?= $block->getListCustomersUrl() ?>",
+                "divclass" : ".customers",
+                "type" : "GET"
+            }
+        }
+    }
+
+
+    </script>
+    <script type="text/x-magento-init">
+    {
+        ".list-customers": {
+            "createTopTalOrders" : {
+                "template": "#customers-list",
+                "url" : "<?= $block->getListCustomersUrl() ?>",
+                "divclass" : ".customers",
+                "type" : "GET"
+            }
+        }
+    }
+
+
+    </script>
+    <script type="text/x-magento-init">
+    {
+        ".submit-order": {
+            "createTopTalOrders" : {
+                "url" : "<?= $block->getCreateOrderUrl() ?>",
+                "divclass" : ".customers",
+                "type" : "POST",
+                "form_id" : "#create-order-form"
+            }
+        }
+    }
+
+
+    </script>
+<?php endif; ?>

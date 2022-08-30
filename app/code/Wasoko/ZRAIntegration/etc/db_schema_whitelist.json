@@ -1,0 +1,38 @@
+{
+    "sales_invoice": {
+        "column": {
+            "zra_is_synced": true,
+            "zra_tpin": true,
+            "zra_vefdtime": true,
+            "zra_terminal_id": true,
+            "zra_invoice_code": true,
+            "zra_fiscal_code": true,
+            "zra_invoice_number": true
+        }
+    },
+    "sales_creditmemo": {
+        "column": {
+            "zra_is_synced": true,
+            "zra_tpin": true,
+            "zra_vefdtime": true,
+            "zra_terminal_id": true,
+            "zra_invoice_code": true,
+            "zra_fiscal_code": true,
+            "zra_invoice_number": true
+        }
+    },
+    "wasoko_zraintegration_invoice": {
+        "column": {
+            "id": true,
+            "entity_id": true,
+            "entity_type": true,
+            "response_error": true,
+            "response_code": true,
+            "response_request": true,
+            "boomi_zra_response": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

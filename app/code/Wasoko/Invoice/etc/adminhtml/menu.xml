@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Wasoko_Invoice::wasoko_invoice_invoiceitems" title="VAT Report - Invoice" module="Wasoko_Invoice"
+             sortOrder="9999" resource="Magento_Backend::content" parent="Magento_Sales::sales_operation"
+             action="wasoko_invoice/invoiceitems/index"/>
+    </menu>
+</config>

@@ -1,0 +1,46 @@
+<div class="tt-messages">
+    <div class="tt-message">
+        <span class="tt-error"></span>
+        <span class="tt-success"></span>
+    </div>
+</div>
+<?php if (!$block->isAuthorized()): ?>
+
+    <form data-hasrequired="* Required Fields" methos="POST" id="auth-form" action="<?= $block->getAuthUrl() ?>">
+        <fieldset class="fieldset">
+            <div class="field username required">
+                <label class="label" for="field1">
+                    <span>Username</span>
+                </label>
+                <div class="control">
+                    <input data-validate='{"required":true}' name="username" id="username" title="Username" value=""
+                           class="input-text" type="text"/>
+                </div>
+            </div>
+            <div class="field username required">
+                <label class="label" for="field1">
+                    <span>Password</span>
+                </label>
+                <div class="control">
+                    <input data-validate='{"required":true}' name="password" id="password" title="Password" value=""
+                           class="input-text" type="password"/>
+                </div>
+            </div>
+            <div class="actions-toolbar">
+                <div class="primary">
+                    <button type="submit" title="Authorize" class="action submit primary">
+                        <span>Authorize</span>
+                    </button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+    <script type="text/x-magento-init">
+        {
+            "#auth-form": {
+                 "validation": {}
+            }
+        }
+    </script>
+<?php endif; ?>
+

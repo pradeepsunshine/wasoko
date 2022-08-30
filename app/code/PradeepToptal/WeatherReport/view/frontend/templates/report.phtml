@@ -1,0 +1,90 @@
+<div id="report-container">
+    <form class="form-report report-city-real"
+          action="<?= $this->getFormActionUrl(); ?>"
+          id="report-city"
+          method="POST"
+          data-hasrequired="<?= __('* Required Fields') ?>"
+          data-mage-init='{"validation":{}}'>
+        <fieldset class="fieldset">
+            <input name="form_key" type="hidden" value="<?= $this->getFormKey(); ?>">
+            <div class="field name required">
+                <input type="text" name="city" placeholder="City Name" data-validate="{required:true}"
+                       value="<?= $this->getRequest()->getParam('city') ?>">
+            </div>
+            <div class="field name required">
+                <?= $this->getCountrySelectorHtml($this->getRequest()->getParam('country_id')) ?>
+            </div>
+            <div class="actions-toolbar">
+                <div class="primary">
+                    <button type="submit" title="<?php echo __('Submit') ?>" class="action submit primary"
+                            id="report-button">
+                        <span><?php echo __('Get Report') ?></span>
+                    </button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+    <form class="form-report report-city-history"
+          action="<?= $this->getFormActionUrl(); ?>"
+          id="report-city-hostory"
+          method="POST"
+          data-hasrequired="<?= __('* Required Fields') ?>"
+          data-mage-init='{"validation":{}}'>
+        <fieldset class="fieldset">
+            <input name="form_key" type="hidden" value="<?= $this->getFormKey(); ?>">
+            <div class="field name required">
+                <input type="text" name="city" placeholder="City Name" data-validate="{required:true}"
+                       value="<?= $this->getRequest()->getParam('city') ?>">
+            </div>
+            <div class="field name required">
+                <?= $this->getCountrySelectorHtml($this->getRequest()->getParam('country_id')) ?>
+            </div>
+            <div class="field name required" data-role="filter-form" id="date_range">
+                <div class="field name required">
+                    <input type="text" name="from" placeholder="Select From Date" data-validate="{required:true}"
+                           id="from-date" autocomplete="off" value="<?= $this->getRequest()->getParam('from') ?>">
+                </div>
+                <div class="field name required">
+                    <input type="text" name="to" placeholder="Select To Date" data-validate="{required:true}"
+                           id="to-date"
+                           autocomplete="off" value="<?= $this->getRequest()->getParam('to') ?>">
+                </div>
+                <div class="actions-toolbar">
+                    <div class="primary">
+                        <button type="submit" title="<?php echo __('Submit') ?>" class="action submit primary"
+                                id="report-button">
+                            <span><?php echo __('Show Historic Report') ?></span>
+                        </button>
+                    </div>
+                    <div class="primary">
+                        <button type="submit" name="generate" title="<?php echo __('Submit') ?>"
+                                class="action submit primary"
+                                id="report-button" value="generate">
+                            <span><?php echo __('Generate PDF') ?></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>
+
+
+<script>
+    require([
+        "jquery",
+        "mage/calendar"
+    ], function ($) {
+
+        $("#date_range").dateRange({
+            buttonText: "<?php echo __('Select Date') ?>",
+            from: {
+                id: "from-date"
+            },
+            to: {
+                id: "to-date"
+            },
+            maxDate: new Date()
+        });
+    });
+</script>

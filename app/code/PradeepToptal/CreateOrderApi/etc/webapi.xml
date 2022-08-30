@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+	<route url="/V1/pradeeptoptal-createorderapi/listallprods" method="GET">
+		<service class="PradeepToptal\CreateOrderApi\Api\ListallprodsManagementInterface" method="getListallprods"/>
+		<resources>
+			<resource ref="anonymous"/>
+		</resources>
+	</route>
+	<route url="/V1/pradeeptoptal-createorderapi/listallcustomers" method="GET">
+		<service class="PradeepToptal\CreateOrderApi\Api\ListallcustomersManagementInterface" method="getListallcustomers"/>
+		<resources>
+			<resource ref="anonymous"/>
+		</resources>
+	</route>
+	<route url="/V1/pradeeptoptal-createorderapi/createorder" method="POST">
+		<service class="PradeepToptal\CreateOrderApi\Api\CreateorderManagementInterface" method="postCreateorder"/>
+		<resources>
+			<resource ref="anonymous"/>
+		</resources>
+	</route>
+    <route url="/V1/pradeeptoptal-createorderapi/authorize" method="POST">
+        <service class="PradeepToptal\CreateOrderApi\Api\AuthorizeManagementInterface" method="authorizeAdminUser"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+</routes>

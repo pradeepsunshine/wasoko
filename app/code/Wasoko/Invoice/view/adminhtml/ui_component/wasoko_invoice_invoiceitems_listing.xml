@@ -1,0 +1,257 @@
+<?xml version="1.0" ?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">
+                wasoko_invoice_invoiceitems_listing.wasoko_invoice_invoiceitems_listing_data_source
+            </item>
+        </item>
+    </argument>
+    <settings>
+        <spinner>wasoko_invoice_invoiceitems_columns</spinner>
+        <deps>
+            <dep>wasoko_invoice_invoiceitems_listing.wasoko_invoice_invoiceitems_listing_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="wasoko_invoice_invoiceitems_listing_data_source" component="Magento_Ui/js/grid/provider">
+        <settings>
+            <storageConfig>
+                <param name="indexField" xsi:type="string">entity_id</param>
+            </storageConfig>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <aclResource>Wasoko_Invoice::InvoiceItems</aclResource>
+        <dataProvider name="wasoko_invoice_invoiceitems_listing_data_source"
+                      class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>entity_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <listingToolbar name="listing_top">
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+        <exportButton name="export_button"/>
+        <filters name="listing_filters">
+            <filterSelect name="store_id" provider="${ $.parentName }">
+                <settings>
+                    <options class="Magento\Store\Ui\Component\Listing\Column\Store\Options"/>
+                    <caption translate="true">All Store Views</caption>
+                    <label translate="true">Purchased From</label>
+                    <dataScope>store_id</dataScope>
+                    <imports>
+                        <link name="visible">ns = ${ $.ns }, index = ${ $.index }:visible</link>
+                    </imports>
+                </settings>
+            </filterSelect>
+        </filters>
+        <paging name="listing_paging"/>
+    </listingToolbar>
+    <columns name="wasoko_invoice_invoiceitems_columns">
+        <selectionsColumn name="ids">
+            <settings>
+                <indexField>entity_id</indexField>
+            </settings>
+        </selectionsColumn>
+        <column name="increment_id">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Invoice</label>
+                <sorting>asc</sorting>
+            </settings>
+        </column>
+        <column name="created_at" class="Magento\Ui\Component\Listing\Columns\Date"
+                component="Magento_Ui/js/grid/columns/date">
+            <settings>
+                <filter>dateRange</filter>
+                <dataType>date</dataType>
+                <label translate="true">Invoice Date</label>
+            </settings>
+        </column>
+        <column name="order_increment_id">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Order #</label>
+            </settings>
+        </column>
+        <column name="order_created_at" class="Magento\Ui\Component\Listing\Columns\Date"
+                component="Magento_Ui/js/grid/columns/date">
+            <settings>
+                <filter>dateRange</filter>
+                <dataType>date</dataType>
+                <label translate="true">Order Date</label>
+            </settings>
+        </column>
+        <column name="name">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Product</label>
+            </settings>
+        </column>
+        <column name="sku">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Sku</label>
+            </settings>
+        </column>
+        <column name="base_price" class="Magento\Sales\Ui\Component\Listing\Column\Price">
+            <settings>
+                <label translate="true">Price</label>
+            </settings>
+        </column>
+        <column name="qty">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Units</label>
+            </settings>
+        </column>
+        <column name="base_price_incl_tax" class="Magento\Sales\Ui\Component\Listing\Column\Price">
+            <settings>
+                <label translate="true">Unit Gross Price</label>
+            </settings>
+        </column>
+        <column name="base_price" class="Magento\Sales\Ui\Component\Listing\Column\Price">
+            <settings>
+                <label translate="true">Unit Net Price</label>
+            </settings>
+        </column>
+        <column name="qty_ordered">
+            <settings>
+                <label translate="true">Units Ordered</label>
+            </settings>
+        </column>
+        <column name="qty_returned">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Units returned</label>
+            </settings>
+        </column>
+        <column name="qty_invoiced" class="Wasoko\Invoice\Ui\Component\Listing\Column\TotalSalesValue">
+            <settings>
+                <sortable>false</sortable>
+                <label translate="true">Total Sales Value</label>
+            </settings>
+        </column>
+        <column name="total_order_value" class="Wasoko\Invoice\Ui\Component\Listing\Column\TotalOrderValue">
+            <settings>
+                <label translate="true">Total Ordered Value</label>
+                <sortable>false</sortable>
+            </settings>
+        </column>
+        <column name="tax_amount" class="Magento\Sales\Ui\Component\Listing\Column\Price">
+            <settings>
+                <sortable>false</sortable>
+                <label translate="true">Tax Amount</label>
+            </settings>
+        </column>
+        <column name="base_row_total_incl_tax" class="Magento\Sales\Ui\Component\Listing\Column\Price">
+            <settings>
+                <sortable>false</sortable>
+                <label translate="true">Total Cost</label>
+            </settings>
+        </column>
+        <column name="billing_name">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Bill-to Name</label>
+            </settings>
+        </column>
+        <column name="state" component="Magento_Ui/js/grid/columns/select">
+            <settings>
+                <filter>select</filter>
+                <sortable>false</sortable>
+                <options class="Magento\Sales\Ui\Component\Listing\Column\Invoice\State\Options"/>
+                <dataType>select</dataType>
+                <label translate="true">Status</label>
+            </settings>
+        </column>
+
+        <column name="store_id" class="Magento\Store\Ui\Component\Listing\Column\Store">
+            <settings>
+                <label translate="true">Purchased From</label>
+                <bodyTmpl>ui/grid/cells/html</bodyTmpl>
+                <sortable>false</sortable>
+                <visible>false</visible>
+            </settings>
+        </column>
+        <column name="billing_address" class="Magento\Sales\Ui\Component\Listing\Column\Address">
+            <settings>
+                <sortable>false</sortable>
+                <filter>text</filter>
+                <label translate="true">Billing Address</label>
+                <bodyTmpl>ui/grid/cells/html</bodyTmpl>
+                <visible>false</visible>
+            </settings>
+        </column>
+        <column name="shipping_address" class="Magento\Sales\Ui\Component\Listing\Column\Address">
+            <settings>
+                <sortable>false</sortable>
+                <filter>text</filter>
+                <label translate="true">Shipping Address</label>
+                <bodyTmpl>ui/grid/cells/html</bodyTmpl>
+                <visible>false</visible>
+            </settings>
+        </column>
+        <column name="customer_name">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Customer Name</label>
+                <visible>false</visible>
+            </settings>
+        </column>
+        <column name="customer_email">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Email</label>
+                <visible>false</visible>
+            </settings>
+        </column>
+        <column name="customer_group_id" component="Magento_Ui/js/grid/columns/select">
+            <settings>
+                <sortable>false</sortable>
+                <filter>select</filter>
+                <options class="Magento\Customer\Ui\Component\Listing\Column\Group\Options"/>
+                <dataType>select</dataType>
+                <label translate="true">Customer Group</label>
+                <visible>false</visible>
+            </settings>
+        </column>
+        <column name="payment_method" component="Magento_Ui/js/grid/columns/select">
+            <settings>
+                <sortable>false</sortable>
+                <filter>select</filter>
+                <options class="Magento\Payment\Ui\Component\Listing\Column\Method\Options"/>
+                <dataType>select</dataType>
+                <label translate="true">Payment Method</label>
+                <visible>false</visible>
+            </settings>
+        </column>
+        <column name="shipping_information">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Shipping Information</label>
+                <visible>false</visible>
+            </settings>
+        </column>
+        <column name="tax_percent">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">VAT %</label>
+                <visible>false</visible>
+            </settings>
+        </column>
+        <actionsColumn name="actions" class="Magento\Sales\Ui\Component\Listing\Column\ViewAction">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="viewUrlPath" xsi:type="string">sales/invoice/view</item>
+                    <item name="urlEntityParamName" xsi:type="string">invoice_id</item>
+                </item>
+            </argument>
+            <settings>
+                <indexField>increment_id</indexField>
+            </settings>
+        </actionsColumn>
+    </columns>
+</listing>

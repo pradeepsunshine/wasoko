@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="weatherreport" translate="label" sortOrder="200">
+            <label>Weather Report</label>
+        </tab>
+        <section id="weatherapi" translate="label" type="text" sortOrder="40" showInDefault="1">
+            <class>separator-top</class>
+            <label>API Info</label>
+            <tab>weatherreport</tab>
+            <resource>PradeepToptal_WeatherReport::api_config</resource>
+            <group id="general" translate="label" type="text" sortOrder="90" showInDefault="1">
+                <label>API Settings</label>
+                <field id="url" translate="label comment" type="text" sortOrder="10" showInDefault="1">
+                    <label>API End Point</label>
+                </field>
+                <field id="key" translate="label comment" type="obscure" sortOrder="20" showInDefault="1">
+                    <label>API Key</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

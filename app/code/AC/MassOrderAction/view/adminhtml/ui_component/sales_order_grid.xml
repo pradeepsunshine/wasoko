@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <listingToolbar name="listing_top">
+        <massaction name="listing_massaction">
+            <action name="mass_invoice">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="type" xsi:type="string">mass_invoice</item>
+                        <item name="label" xsi:type="string" translate="true">AC Invoice</item>
+                        <item name="url" xsi:type="url" path="acmassorder/invoice/process"/>
+                        <item name="confirm" xsi:type="array">
+                            <item name="title" xsi:type="string" translate="true">Invoice Order(s)</item>
+                            <item name="message" xsi:type="string" translate="true">Are you sure you wan\'t to invoice
+                                selected orders?
+                            </item>
+                        </item>
+                    </item>
+                </argument>
+            </action>
+
+            <action name="mass_shipment">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="type" xsi:type="string">mass_shipment</item>
+                        <item name="label" xsi:type="string" translate="true">AC Ship</item>
+                        <item name="url" xsi:type="url" path="acmassorder/shipment/process"/>
+                        <item name="confirm" xsi:type="array">
+                            <item name="title" xsi:type="string" translate="true">Invoice Order(s)</item>
+                            <item name="message" xsi:type="string" translate="true">Are you sure you wan\'t to ship
+                                selected orders?
+                            </item>
+                        </item>
+                    </item>
+                </argument>
+            </action>
+        </massaction>
+    </listingToolbar>
+</listing>
