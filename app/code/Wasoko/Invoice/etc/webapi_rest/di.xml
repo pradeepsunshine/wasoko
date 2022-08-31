@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Sales\Api\InvoiceRepositoryInterface">
+        <plugin name="invoiceWasokoInfo" type="Wasoko\Invoice\Plugin\Api\InvoiceRepository"/>
+    </type>
+    <type name="Magento\Sales\Api\CreditmemoRepositoryInterface">
+        <plugin name="memoWasokoInfo" type="Wasoko\Creditmemo\Plugin\Api\CreditmemoRepository"/>
+    </type>
+</config>
