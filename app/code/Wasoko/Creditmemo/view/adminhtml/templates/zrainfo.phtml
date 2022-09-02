@@ -1,0 +1,21 @@
+<?php
+$memo = $block->getCreditmemo();
+if (!$memo->getZraInvoiceCode()) return;
+?>
+
+<tr>
+    <th>INVOICE CODE</th>
+    <td><?= $memo->getZraInvoiceCode() ?></td>
+</tr>
+<tr>
+    <th>INVOICE NUM</th>
+    <td><span><?= $memo->getZraInvoiceNumber() ?></span></td>
+</tr>
+<tr>
+    <th>FISCAL CODE</th>
+    <td><?= $memo->getZraFiscalCode() ?></td>
+</tr>
+<tr>
+    <th>TERMINAL ID</th>
+    <td><?= $memo->getZraTerminalId() ?></td>
+</tr>

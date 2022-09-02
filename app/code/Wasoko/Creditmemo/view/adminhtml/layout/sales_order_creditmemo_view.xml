@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="order_info">
+            <block class="Magento\Sales\Block\Adminhtml\Order\Creditmemo\View\Form" name="sales_creditmemo_view_zrainfo"
+                   template="Wasoko_Creditmemo::zrainfo.phtml" />
+        </referenceBlock>
+    </body>
+</page>
