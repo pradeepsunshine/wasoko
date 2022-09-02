@@ -95,6 +95,9 @@ class DefaultInvoice extends \Magento\Sales\Model\Order\Pdf\Items\Invoice\Defaul
         try {
             $orderItem = $this->getItem()->getOrderItem();
             $taxPercent = ($orderItem->getTaxPercent()) ? round($orderItem->getTaxPercent(), 2) : '0.00';
+            if ($orderItem->getProduct()->getIsMtv()) {
+                $taxPercent = 16;
+            }
             $lines[0][] = ['text' => $taxPercent, 'feed' => 435, 'align' => 'right'];
         } catch (NoSuchEntityException $noSuchEntityException) {
 

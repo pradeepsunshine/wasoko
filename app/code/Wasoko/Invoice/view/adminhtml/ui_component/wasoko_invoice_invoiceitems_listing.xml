@@ -235,7 +235,7 @@
                 <visible>false</visible>
             </settings>
         </column>
-        <column name="tax_percent">
+        <column name="tax_percent" class="Wasoko\Creditmemo\Ui\Component\Listing\Column\Tax">
             <settings>
                 <filter>text</filter>
                 <label translate="true">VAT %</label>
