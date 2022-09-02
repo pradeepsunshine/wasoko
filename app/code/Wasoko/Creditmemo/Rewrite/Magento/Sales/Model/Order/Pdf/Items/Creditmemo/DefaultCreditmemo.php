@@ -73,6 +73,7 @@ class DefaultCreditmemo extends \Magento\Sales\Model\Order\Pdf\Items\Creditmemo\
     {
         $order = $this->getOrder();
         $item = $this->getItem();
+        $orderItem = $this->getItem()->getOrderItem();
         $pdf = $this->getPdf();
         $page = $this->getPage();
         $lines = [];
@@ -94,7 +95,6 @@ class DefaultCreditmemo extends \Magento\Sales\Model\Order\Pdf\Items\Creditmemo\
         $lines[0][] = ['text' => $item->getQty() * 1, 'feed' => 395, 'align' => 'right'];
 
         try {
-            $orderItem = $this->getItem()->getOrderItem();
             $taxPercent = ($orderItem->getTaxPercent()) ? round($orderItem->getTaxPercent(), 2) : '0.00';
             if ($orderItem->getProduct()->getIsMtv()) {
                 $taxPercent = 16;

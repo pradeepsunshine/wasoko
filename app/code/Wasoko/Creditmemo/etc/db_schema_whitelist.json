@@ -3,5 +3,10 @@
         "column": {
             "is_original_generated": true
         }
+    },
+    "sales_creditmemo_grid": {
+        "column": {
+            "zra_invoice_number": true
+        }
     }
 }

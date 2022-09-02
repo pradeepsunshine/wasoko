@@ -5,4 +5,7 @@
         <column xsi:type="tinyint" name="is_original_generated" unsigned="true" nullable="false" identity="false" default="0"
                 comment="In original invoice generated?"/>
     </table>
+    <table name="sales_invoice_grid">
+        <column xsi:type="varchar" length="255" name="zra_invoice_number" comment="ZRA Invoice Number"/>
+    </table>
 </schema>

@@ -22,4 +22,13 @@
             </argument>
         </arguments>
     </type>
+    <virtualType name="CreditmemoGridAggregator">
+        <arguments>
+            <argument name="columns" xsi:type="array">
+                <item name="zra_invoice_number" xsi:type="string">
+                    sales_creditmemo.zra_invoice_number
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
 </config>
