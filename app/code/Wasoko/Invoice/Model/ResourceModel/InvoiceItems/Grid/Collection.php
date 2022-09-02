@@ -45,7 +45,8 @@ class Collection extends SearchResult
                     'grand_total',
                     'created_at',
                     'updated_at',
-                    'base_grand_total'
+                    'base_grand_total',
+                    'zra_invoice_number'
                 ]
             )->join(
                 [

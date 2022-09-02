@@ -1,0 +1,21 @@
+<?php
+$invoice = $block->getInvoice();
+if (!$invoice->getZraInvoiceCode()) return;
+?>
+
+<tr>
+    <th>INVOICE CODE</th>
+    <td><?= $invoice->getZraInvoiceCode() ?></td>
+</tr>
+<tr>
+    <th>INVOICE NUM</th>
+    <td><span><?= $invoice->getZraInvoiceNumber() ?></span></td>
+</tr>
+<tr>
+    <th>FISCAL CODE</th>
+    <td><?= $invoice->getZraFiscalCode() ?></td>
+</tr>
+<tr>
+    <th>TERMINAL ID</th>
+    <td><?= $invoice->getZraTerminalId() ?></td>
+</tr>

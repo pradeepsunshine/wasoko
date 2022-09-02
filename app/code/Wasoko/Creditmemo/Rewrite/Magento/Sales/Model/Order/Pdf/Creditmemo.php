@@ -42,6 +42,8 @@ class Creditmemo extends \Magento\Sales\Model\Order\Pdf\Creditmemo
      */
     private $memoCommentCollectionFactory;
 
+    private $currentCreditMemoObj;
+
     /**
      * @param \Magento\Payment\Helper\Data $paymentData
      * @param \Magento\Framework\Stdlib\StringUtils $string
@@ -163,6 +165,7 @@ class Creditmemo extends \Magento\Sales\Model\Order\Pdf\Creditmemo
                 );
                 $this->_storeManager->setCurrentStore($creditmemo->getStoreId());
             }
+            $this->currentCreditMemoObj = $creditmemo;
             $page = $this->newPage();
             $order = $creditmemo->getOrder();
             /* Add image */
@@ -186,7 +189,7 @@ class Creditmemo extends \Magento\Sales\Model\Order\Pdf\Creditmemo
             $this->_setFontBold($page, 12);
             $page->drawText('CREDIT NOTE', 250, $docHeader[1] + 5, 'UTF-8');
             /* Add document text and number */
-            $this->insertDocumentNumber($page, __('Credit Memo # ') . $creditmemo->getIncrementId());
+            $this->insertDocumentNumber($page, __('Credit Memo # ') . $creditmemo->getZraInvoiceNumber());
             if ($creditmemo->getIsOriginalGenerated()) {
                 $origDupText = __('DUPLICATE');
             } else {
@@ -197,7 +200,7 @@ class Creditmemo extends \Magento\Sales\Model\Order\Pdf\Creditmemo
             $order = $creditmemo->getOrder();
             foreach ($order->getInvoiceCollection() as $invoice) {
                  $invoiceIncrementId = $invoice->getIncrementId();
-                 $affecttedInvoiceText = "Original Invoice No: ".$invoiceIncrementId;
+                 $affecttedInvoiceText = "Original Invoice No: ".$invoice->getZraInvoiceNumber();
             }
 
             $page->drawText($origDupText, 420, $docHeader[1] - 15, 'UTF-8');
@@ -250,7 +253,7 @@ class Creditmemo extends \Magento\Sales\Model\Order\Pdf\Creditmemo
 
         $page->setFillColor(new \Zend_Pdf_Color_GrayScale(0.45));
         $page->setLineColor(new \Zend_Pdf_Color_GrayScale(0.45));
-        $page->drawRectangle(25, $top, 570, $top - 55);
+        $page->drawRectangle(25, $top, 570, $top - 100);
         $page->setFillColor(new \Zend_Pdf_Color_GrayScale(1));
         $this->setDocHeaderCoordinates([25, $top, 570, $top - 55]);
         $this->_setFontRegular($page, 10);
@@ -270,12 +273,28 @@ class Creditmemo extends \Magento\Sales\Model\Order\Pdf\Creditmemo
                     true
                 ),
                 \IntlDateFormatter::MEDIUM,
+                \IntlDateFormatter::SHORT,
+                null,
+                false,
                 false
             ),
             35,
             $top,
             'UTF-8'
         );
+
+        $zraFields['Invoice Code '] = $this->currentCreditMemoObj->getZraInvoiceCode();
+        $zraFields['Fiscan Code ']  = $this->currentCreditMemoObj->getZraFiscalCode();
+        $zraFields['Termincal # ']  = $this->currentCreditMemoObj->getZraTerminalId();
+
+        foreach ($zraFields as $key => $zraField) {
+            $top -=15;
+            $zraText = $key. ': ' . $zraField;
+            $page->drawText(strip_tags(ltrim($zraText)), 35,
+                $top,
+                'UTF-8');
+            $this->y -= 15;
+        }
 
         $top -= 10;
         $this->insertMemoReason($page, $obj, $top);

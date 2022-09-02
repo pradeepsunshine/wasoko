@@ -8,6 +8,7 @@ use Magento\Framework\App\ObjectManager;
 use Magento\Sales\Model\ResourceModel\Order\Invoice\Collection;
 use Magento\Sales\Model\RtlTextHandler;
 use Magento\Store\Model\Information;
+use Magento\Sales\Model\Order\InvoiceFactory;
 
 class Invoice extends \Magento\Sales\Model\Order\Pdf\Invoice
 {
@@ -32,6 +33,13 @@ class Invoice extends \Magento\Sales\Model\Order\Pdf\Invoice
     private $storeInfo;
 
     /**
+     * @var InvoiceFactory
+     */
+    private $invoiceFactory;
+
+    private $currentInvoiceObj;
+
+    /**
      * @param \Magento\Payment\Helper\Data $paymentData
      * @param \Magento\Framework\Stdlib\StringUtils $string
      * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
@@ -46,6 +54,7 @@ class Invoice extends \Magento\Sales\Model\Order\Pdf\Invoice
      * @param \Magento\Store\Model\App\Emulation $appEmulation
      * @param RtlTextHandler|null $rtlTextHandler
      * @param Information $storeInfo
+     * @param InvoiceFactory $invoiceFactory
      * @param array $data
      */
     public function __construct(
@@ -63,12 +72,14 @@ class Invoice extends \Magento\Sales\Model\Order\Pdf\Invoice
         \Magento\Store\Model\App\Emulation $appEmulation,
         ?RtlTextHandler $rtlTextHandler = null,
         Information $storeInfo,
+        InvoiceFactory $invoiceFactory,
         array $data = []
     ) {
         $this->_storeManager = $storeManager;
         $this->appEmulation = $appEmulation;
         $this->storeInfo = $storeInfo;
         $this->rtlTextHandler = $rtlTextHandler ?: ObjectManager::getInstance()->get(RtlTextHandler::class);
+        $this->_invoiceFactory = $invoiceFactory;
         parent::__construct(
             $paymentData,
             $string,
@@ -152,6 +163,7 @@ class Invoice extends \Magento\Sales\Model\Order\Pdf\Invoice
             }
             $page = $this->newPage();
             $order = $invoice->getOrder();
+            $this->currentInvoiceObj = $invoice;
             /* Add image */
             $this->insertLogo($page, $invoice->getStore());
             /* Add address */
@@ -168,9 +180,9 @@ class Invoice extends \Magento\Sales\Model\Order\Pdf\Invoice
             );
             $docHeader = $this->getDocHeaderCoordinates();
             $this->_setFontBold($page, 12);
-            $page->drawText('VAT INVOICE', 250, $docHeader[1] + 5, 'UTF-8');
+            $page->drawText('TAX INVOICE', 250, $docHeader[1] + 5, 'UTF-8');
             /* Add document text and number */
-            $this->insertDocumentNumber($page, __('Invoice # ') . $invoice->getIncrementId());
+            $this->insertDocumentNumber($page, __('Invoice # ') . $this->currentInvoiceObj->getZraInvoiceNumber());
             if ($invoice->getIsOriginalGenerated()) {
                 $origDupText = __('DUPLICATE');
             } else {
@@ -228,7 +240,7 @@ class Invoice extends \Magento\Sales\Model\Order\Pdf\Invoice
 
         $page->setFillColor(new \Zend_Pdf_Color_GrayScale(0.45));
         $page->setLineColor(new \Zend_Pdf_Color_GrayScale(0.45));
-        $page->drawRectangle(25, $top, 570, $top - 55);
+        $page->drawRectangle(25, $top, 570, $top - 100);
         $page->setFillColor(new \Zend_Pdf_Color_GrayScale(1));
         $this->setDocHeaderCoordinates([25, $top, 570, $top - 55]);
         $this->_setFontRegular($page, 10);
@@ -241,19 +253,34 @@ class Invoice extends \Magento\Sales\Model\Order\Pdf\Invoice
         $top -=30;
         $page->drawText(
             __('Order Date: ') .
-            $this->_localeDate->formatDate(
+            $this->_localeDate->formatDateTime(
                 $this->_localeDate->scopeDate(
                     $order->getStore(),
                     $order->getCreatedAt(),
                     true
                 ),
                 \IntlDateFormatter::MEDIUM,
+                \IntlDateFormatter::SHORT,
+                null,
+                false,
                 false
             ),
             35,
             $top,
             'UTF-8'
         );
+
+        $zraFields['Invoice Code '] = $this->currentInvoiceObj->getZraInvoiceCode();
+        $zraFields['Fiscan Code ']  = $this->currentInvoiceObj->getZraFiscalCode();
+        $zraFields['Termincal # ']  = $this->currentInvoiceObj->getZraTerminalId();
+        foreach ($zraFields as $key => $zraField) {
+            $top -=15;
+            $zraText = $key. ': ' . $zraField;
+            $page->drawText(strip_tags(ltrim($zraText)), 35,
+                $top,
+                'UTF-8');
+            $this->y -= 15;
+        }
 
         $top -= 10;
         $this->insertStoreAddress($page, $obj, $top);
@@ -507,6 +534,7 @@ class Invoice extends \Magento\Sales\Model\Order\Pdf\Invoice
                 }
             }
         }
+        $this->_setFontBold($page, 12);
         $top = $top - 110;
     }
 

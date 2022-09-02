@@ -55,7 +55,7 @@
                 <indexField>entity_id</indexField>
             </settings>
         </selectionsColumn>
-        <column name="increment_id">
+        <column name="zra_invoice_number">
             <settings>
                 <filter>text</filter>
                 <label translate="true">Invoice</label>
