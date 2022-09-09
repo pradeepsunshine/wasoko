@@ -5,6 +5,6 @@
         <plugin name="invoiceWasokoInfo" type="Wasoko\Invoice\Plugin\Api\InvoiceRepository"/>
     </type>
     <type name="Magento\Sales\Api\CreditmemoRepositoryInterface">
-        <plugin name="memoWasokoInfo" type="Wasoko\Creditmemo\Plugin\Api\CreditmemoRepository"/>
+        <plugin name="memoWasokoInfo" type="Wasoko\Invoice\Plugin\Api\CreditmemoRepository"/>
     </type>
 </config>

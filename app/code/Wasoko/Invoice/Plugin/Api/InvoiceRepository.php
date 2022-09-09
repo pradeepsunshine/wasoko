@@ -34,6 +34,21 @@ class InvoiceRepository
      */
     public function afterGet(InvoiceRepositoryInterface $subject, InvoiceInterface $invoice)
     {
+        $extensionAttributes = $invoice->getExtensionAttributes(); /** get current extension attributes from entity **/
+        $order = $invoice->getOrder();
+        $dataArr = [];
+        $customerName = $order->getCustomerFirstname() . ' ' . $order->getCustomerMiddlename() . ' ' . $order->getCustomerLastname();
+        $dataArr['BuyerTPIN'] = $order->getData('customer_taxvat');
+        $dataArr['BuyerName'] = $customerName;
+        $dataArr['BuyerTaxAccountName'] = $customerName;
+        $billingAddress = $order->getBillingAddress();
+        $street = $billingAddress->getStreet();
+        $dataArr['BuyerAddress'] =  $street[0]  . ', '
+            .$billingAddress->getRegion() . ', ' . $billingAddress->getCountryId(). ',' . $billingAddress->getPostcode();
+        $dataArr['BuyerTel'] = $order->getBillingAddress()->getTelephone();
+        $dataJson = json_encode($dataArr);
+        $extensionAttributes->setInvoiceZraData($dataJson);
+        $invoice->setExtensionAttributes($extensionAttributes);
         $this->addTaxLabelExtensionAttribute($invoice);
         return $invoice;
     }
@@ -83,7 +98,12 @@ class InvoiceRepository
                 $taxCode = $taxCodeArr[$item->getOrderItem()->getId()] ?? 'NO TAX CODE FOUND';
                 $extensionAttributes = $item->getExtensionAttributes();
                 $isMtv = $item->getOrderItem()->getProduct()->getIsMtv();
-                $extensionAttributes->setIsMtv($isMtv);
+                $mtv = $item->getOrderItem()->getProduct()->getMtv();
+                $mtvDataArr = [
+                    'is_mtv' => $isMtv,
+                    'mtv' => $mtv
+                ];
+                $extensionAttributes->setMtvData(json_encode($mtvDataArr));
                 $extensionAttributes->setTaxLabels($taxCode);
                 $item->setExtensionAttributes($extensionAttributes);
             }

@@ -8,9 +8,18 @@
         <attribute code="tax_labels" type="string"/>
     </extension_attributes>
     <extension_attributes for="Magento\Sales\Api\Data\InvoiceItemInterface">
-        <attribute code="is_mtv" type="string"/>
+        <attribute code="mtv_data" type="string"/>
     </extension_attributes>
     <extension_attributes for="Magento\Sales\Api\Data\CreditmemoItemInterface">
-        <attribute code="is_mtv" type="string"/>
+        <attribute code="mtv_data" type="string"/>
+    </extension_attributes>
+    <extension_attributes for="Magento\Sales\Api\Data\InvoiceInterface">
+        <attribute code="invoice_zra_data" type="string"/>
+    </extension_attributes>
+    <extension_attributes for="Magento\Sales\Api\Data\CreditmemoInterface">
+        <attribute code="invoice_zra_data" type="string"/>
+    </extension_attributes>
+    <extension_attributes for="Magento\Sales\Api\Data\CreditmemoItemInterface">
+        <attribute code="tax_labels" type="string"/>
     </extension_attributes>
 </config>

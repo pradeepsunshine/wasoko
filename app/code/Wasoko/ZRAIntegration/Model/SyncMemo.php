@@ -13,7 +13,7 @@ class SyncMemo extends AbstractEntity
             $params = [];
             $this->logger->info($memoId.'---MEMO Sync process Initiated.');
             $data = [
-                'id' => 25,
+                'id' =>  $memoId,
                 'type' => 'CreditMemo'
             ];
             $serializedData = $this->json->serialize($data);

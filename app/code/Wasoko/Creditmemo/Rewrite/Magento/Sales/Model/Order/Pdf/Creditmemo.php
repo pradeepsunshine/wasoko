@@ -189,7 +189,7 @@ class Creditmemo extends \Magento\Sales\Model\Order\Pdf\Creditmemo
             $this->_setFontBold($page, 12);
             $page->drawText('CREDIT NOTE', 250, $docHeader[1] + 5, 'UTF-8');
             /* Add document text and number */
-            $this->insertDocumentNumber($page, __('Credit Memo # ') . $creditmemo->getZraInvoiceNumber());
+            $this->insertDocumentNumber($page, __('Invoice # ') . $creditmemo->getZraInvoiceNumber());
             if ($creditmemo->getIsOriginalGenerated()) {
                 $origDupText = __('DUPLICATE');
             } else {
@@ -201,10 +201,12 @@ class Creditmemo extends \Magento\Sales\Model\Order\Pdf\Creditmemo
             foreach ($order->getInvoiceCollection() as $invoice) {
                  $invoiceIncrementId = $invoice->getIncrementId();
                  $affecttedInvoiceText = "Original Invoice No: ".$invoice->getZraInvoiceNumber();
+                 $affecttedInvoiceTextCode = "Original Invoice Code: ".$invoice->getZraInvoiceCode();
             }
 
             $page->drawText($origDupText, 420, $docHeader[1] - 15, 'UTF-8');
             $page->drawText($affecttedInvoiceText, 420, $docHeader[1] - 30, 'UTF-8');
+            $page->drawText($affecttedInvoiceTextCode, 420, $docHeader[1] - 45, 'UTF-8');
 
             /* Add table */
             $this->_drawHeader($page);

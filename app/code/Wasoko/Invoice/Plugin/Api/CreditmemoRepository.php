@@ -1,6 +1,6 @@
 <?php
 
-namespace Wasoko\Creditmemo\Plugin\Api;
+namespace Wasoko\Invoice\Plugin\Api;
 
 use Magento\Framework\App\ResourceConnection;
 use Magento\Sales\Api\Data\CreditmemoInterface;
@@ -36,6 +36,27 @@ class CreditmemoRepository
         $originalInvoiceCode = '';
         $originalInvoiceNumber = '';
         $extensionAttributes = $memo->getExtensionAttributes(); /** get current extension attributes from entity **/
+        $order = $memo->getOrder();
+        $invoiceCollection = $memo->getOrder()->getInvoiceCollection();
+        foreach ($invoiceCollection as $invoice) {
+            $originalInvoiceCode = $invoice->getZraInvoiceCode();
+            $originalInvoiceNumber = $invoice->getZraInvoiceNumber();
+        }
+        $dataArr = [];
+        $customerName = $order->getCustomerFirstname() . ' ' . $order->getCustomerMiddlename() . ' ' . $order->getCustomerLastname();
+        $dataArr['BuyerTPIN'] = $order->getData('customer_taxvat');
+        $dataArr['BuyerName'] = $customerName;
+        $dataArr['BuyerTaxAccountName'] = $customerName;
+        $billingAddress = $order->getBillingAddress();
+        $street = $billingAddress->getStreet();
+        $dataArr['BuyerAddress'] =  $street[0]  . ', '
+            .$billingAddress->getRegion() . ', ' . $billingAddress->getCountryId(). ',' . $billingAddress->getPostcode();
+        $dataArr['BuyerTel'] = $order->getBillingAddress()->getTelephone();
+        $dataArr['originalInvoiceNumber'] = $originalInvoiceNumber;
+        $dataArr['originalInvoiceCode'] = $originalInvoiceCode;
+        $dataJson = json_encode($dataArr);
+        $extensionAttributes->setInvoiceZraData($dataJson);
+        $memo->setExtensionAttributes($extensionAttributes);
         $this->addTaxLabelExtensionAttribute($memo);
         return $memo;
     }
@@ -84,8 +105,13 @@ class CreditmemoRepository
             foreach ($itemsCollection as $item) {
                 $taxCode = $taxCodeArr[$item->getOrderItem()->getId()] ?? 'NO TAX CODE FOUND';
                 $extensionAttributes = $item->getExtensionAttributes();
-                $isMtv = $item->getProduct()->getIsMtv();
-                $extensionAttributes->setIsMtv($isMtv);
+                $isMtv = $item->getOrderItem()->getProduct()->getIsMtv();
+                $mtv = $item->getOrderItem()->getProduct()->getMtv();
+                $mtvDataArr = [
+                    'is_mtv' => $isMtv,
+                    'mtv' => $mtv
+                ];
+                $extensionAttributes->setMtvData(json_encode($mtvDataArr));
                 $extensionAttributes->setTaxLabels($taxCode);
                 $item->setExtensionAttributes($extensionAttributes);
             }

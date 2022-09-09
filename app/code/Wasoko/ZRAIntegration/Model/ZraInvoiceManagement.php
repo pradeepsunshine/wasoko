@@ -104,6 +104,7 @@ class ZraInvoiceManagement implements \Wasoko\ZRAIntegration\Api\ZraInvoiceManag
 
         $paramsArr = \Safe\json_decode($response->getContent(), true);
         $requestArr = \Safe\json_decode($response->getRequestBody(), true);
+        
         try {
             if(!empty($paramsArr) && isset($paramsArr['data']) && isset($paramsArr['data']['tpin']))
             {
