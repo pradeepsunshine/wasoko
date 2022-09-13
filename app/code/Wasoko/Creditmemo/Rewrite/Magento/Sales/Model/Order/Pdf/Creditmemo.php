@@ -205,8 +205,8 @@ class Creditmemo extends \Magento\Sales\Model\Order\Pdf\Creditmemo
             }
 
             $page->drawText($origDupText, 420, $docHeader[1] - 15, 'UTF-8');
-            $page->drawText($affecttedInvoiceText, 420, $docHeader[1] - 30, 'UTF-8');
-            $page->drawText($affecttedInvoiceTextCode, 420, $docHeader[1] - 45, 'UTF-8');
+            $page->drawText($affecttedInvoiceText, 400, $docHeader[1] - 30, 'UTF-8');
+            $page->drawText($affecttedInvoiceTextCode, 400, $docHeader[1] - 45, 'UTF-8');
 
             /* Add table */
             $this->_drawHeader($page);
@@ -286,8 +286,8 @@ class Creditmemo extends \Magento\Sales\Model\Order\Pdf\Creditmemo
         );
 
         $zraFields['Invoice Code '] = $this->currentCreditMemoObj->getZraInvoiceCode();
-        $zraFields['Fiscan Code ']  = $this->currentCreditMemoObj->getZraFiscalCode();
-        $zraFields['Termincal # ']  = $this->currentCreditMemoObj->getZraTerminalId();
+        $zraFields['Fiscal Code ']  = $this->currentCreditMemoObj->getZraFiscalCode();
+        $zraFields['Terminal # ']  = $this->currentCreditMemoObj->getZraTerminalId();
 
         foreach ($zraFields as $key => $zraField) {
             $top -=15;

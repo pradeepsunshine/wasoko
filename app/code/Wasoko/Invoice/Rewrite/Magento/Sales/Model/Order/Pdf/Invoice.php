@@ -271,8 +271,8 @@ class Invoice extends \Magento\Sales\Model\Order\Pdf\Invoice
         );
 
         $zraFields['Invoice Code '] = $this->currentInvoiceObj->getZraInvoiceCode();
-        $zraFields['Fiscan Code ']  = $this->currentInvoiceObj->getZraFiscalCode();
-        $zraFields['Termincal # ']  = $this->currentInvoiceObj->getZraTerminalId();
+        $zraFields['Fiscal Code ']  = $this->currentInvoiceObj->getZraFiscalCode();
+        $zraFields['Terminal # ']  = $this->currentInvoiceObj->getZraTerminalId();
         foreach ($zraFields as $key => $zraField) {
             $top -=15;
             $zraText = $key. ': ' . $zraField;
