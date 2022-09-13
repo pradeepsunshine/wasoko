@@ -252,14 +252,14 @@ class Invoice extends \Magento\Sales\Model\Order\Pdf\Invoice
 
         $top -=30;
         $page->drawText(
-            __('Order Date: ') .
+            __('Invoice Date: ') .
             $this->_localeDate->formatDateTime(
                 $this->_localeDate->scopeDate(
                     $order->getStore(),
-                    $order->getCreatedAt(),
+                    $this->currentInvoiceObj->getCreatedAt(),
                     true
                 ),
-                \IntlDateFormatter::MEDIUM,
+                \IntlDateFormatter::LONG,
                 \IntlDateFormatter::SHORT,
                 null,
                 false,

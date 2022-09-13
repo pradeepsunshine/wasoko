@@ -267,14 +267,14 @@ class Creditmemo extends \Magento\Sales\Model\Order\Pdf\Creditmemo
 
         $top -=30;
         $page->drawText(
-            __('Order Date: ') .
+            __('Invoice Date: ') .
             $this->_localeDate->formatDate(
                 $this->_localeDate->scopeDate(
                     $order->getStore(),
-                    $order->getCreatedAt(),
+                    $this->currentCreditMemoObj->getCreatedAt(),
                     true
                 ),
-                \IntlDateFormatter::MEDIUM,
+                \IntlDateFormatter::LONG,
                 \IntlDateFormatter::SHORT,
                 null,
                 false,
