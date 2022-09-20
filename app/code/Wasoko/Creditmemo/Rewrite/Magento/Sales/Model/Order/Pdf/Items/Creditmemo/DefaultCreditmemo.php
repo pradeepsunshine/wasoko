@@ -8,6 +8,7 @@ use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Sales\Api\OrderItemRepositoryInterface;
 use Magento\Sales\Model\RtlTextHandler;
 use Wasoko\Creditmemo\Rewrite\Magento\Sales\Model\Order\Pdf\Creditmemo;
+use Wasoko\ZRAIntegration\Model\TaxCategoryByOrder;
 
 class DefaultCreditmemo extends \Magento\Sales\Model\Order\Pdf\Items\Creditmemo\DefaultCreditmemo
 {
@@ -20,6 +21,11 @@ class DefaultCreditmemo extends \Magento\Sales\Model\Order\Pdf\Items\Creditmemo\
      * @var OrderItemRepositoryInterface
      */
     private $orderItemRepositoryInterface;
+
+    /**
+     * @var TaxCategoryByOrder
+     */
+    protected $taxCategoryByOrder;
 
     /**
      * @param \Magento\Framework\Model\Context $context
@@ -45,11 +51,13 @@ class DefaultCreditmemo extends \Magento\Sales\Model\Order\Pdf\Items\Creditmemo\
         \Magento\Framework\Data\Collection\AbstractDb $resourceCollection = null,
         array $data = [],
         ?RtlTextHandler $rtlTextHandler = null,
-        OrderItemRepositoryInterface $orderItemRepositoryInterface
+        OrderItemRepositoryInterface $orderItemRepositoryInterface,
+        TaxCategoryByOrder $taxCategoryByOrder
     ) {
         $this->string = $string;
         $this->rtlTextHandler = $rtlTextHandler  ?: ObjectManager::getInstance()->get(RtlTextHandler::class);
         $this->orderItemRepositoryInterface = $orderItemRepositoryInterface;
+        $this->taxCategoryByOrder = $taxCategoryByOrder;
         parent::__construct(
             $context,
             $registry,
@@ -78,10 +86,25 @@ class DefaultCreditmemo extends \Magento\Sales\Model\Order\Pdf\Items\Creditmemo\
         $page = $this->getPage();
         $lines = [];
 
+        $taxCodeArr = $this->taxCategoryByOrder->getOrderTaxCode($order->getId());
+        $taxCodeLabel = $taxCodeArr[$orderItem->getId()] ?? 'N/A';
+
         // draw Product name
+        $prodName = $this->string->split($this->prepareText((string)$item->getName()), 35, true, true);
+        
+        if ($orderItem->getProduct()->getIsMtv()) {
+            $prodName[0] .= ' (MTV - '.$orderItem->getProduct()->getMtv(). ')';
+        }
+        
         $lines[0][] = [
-            'text' => $this->string->split($this->prepareText((string)$item->getName()), 35, true, true),
+            'text' => $prodName,
             'feed' => 35
+        ];
+
+        //Tax Category
+        $lines[0][] = [
+            'text' => $taxCodeLabel,
+            'feed' => 180
         ];
 
         // draw SKU
@@ -96,6 +119,10 @@ class DefaultCreditmemo extends \Magento\Sales\Model\Order\Pdf\Items\Creditmemo\
 
         try {
             $taxPercent = ($orderItem->getTaxPercent()) ? round($orderItem->getTaxPercent(), 2) : '0.00';
+            if ($orderItem->getProduct()->getIsMtv()) {
+                $taxPercent = 16;
+            }
+
             $lines[0][] = ['text' => $taxPercent, 'feed' => 435, 'align' => 'right'];
         } catch (NoSuchEntityException $noSuchEntityException) {
 

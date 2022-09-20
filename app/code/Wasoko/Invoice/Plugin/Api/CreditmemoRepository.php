@@ -5,6 +5,7 @@ namespace Wasoko\Invoice\Plugin\Api;
 use Magento\Framework\App\ResourceConnection;
 use Magento\Sales\Api\Data\CreditmemoInterface;
 use Magento\Sales\Api\CreditmemoRepositoryInterface;
+use Magento\Sales\Model\ResourceModel\Order\Creditmemo\Comment\CollectionFactory;
 
 class CreditmemoRepository
 {
@@ -17,13 +18,20 @@ class CreditmemoRepository
     protected $resCon;
 
     /**
+     * @var CollectionFactory
+     */
+    private $memoCommentCollectionFactory;
+
+    /**
      * @param ResourceConnection $resCon
      */
     public function __construct(
-        ResourceConnection                   $resCon
+        ResourceConnection                   $resCon,
+        CollectionFactory $memoCommentCollectionFactory
     )
     {
         $this->resCon = $resCon;
+        $this->memoCommentCollectionFactory = $memoCommentCollectionFactory;
     }
 
     /**
@@ -54,6 +62,14 @@ class CreditmemoRepository
         $dataArr['BuyerTel'] = $order->getBillingAddress()->getTelephone();
         $dataArr['originalInvoiceNumber'] = $originalInvoiceNumber;
         $dataArr['originalInvoiceCode'] = $originalInvoiceCode;
+        $comment = 'Damaged Products.';
+        $commentCollection = $this->memoCommentCollectionFactory->create()->setCreditmemoFilter($memo);
+        if ($commentCollection->getSize()) {
+            foreach ($commentCollection as $comment) {
+                $comment = substr($comment->getComment(), 0, 111);
+            }
+        }
+        $dataArr['reason'] = $comment;
         $dataJson = json_encode($dataArr);
         $extensionAttributes->setInvoiceZraData($dataJson);
         $memo->setExtensionAttributes($extensionAttributes);

@@ -117,6 +117,8 @@ class Invoice extends \Magento\Sales\Model\Order\Pdf\Invoice
         //columns headers
         $lines[0][] = ['text' => __('Products'), 'feed' => 35];
 
+        $lines[0][] = ['text' => __('Tax Category'), 'feed' => 180];
+
         $lines[0][] = ['text' => __('SKU'), 'feed' => 260, 'align' => 'right'];
 
         $lines[0][] = ['text' => __('Qty'), 'feed' => 395, 'align' => 'right'];

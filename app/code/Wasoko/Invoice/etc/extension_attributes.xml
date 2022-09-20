@@ -22,4 +22,7 @@
     <extension_attributes for="Magento\Sales\Api\Data\CreditmemoItemInterface">
         <attribute code="tax_labels" type="string"/>
     </extension_attributes>
+    <extension_attributes for="Magento\Sales\Api\Data\CreditmemoItemInterface">
+        <attribute code="return_reason" type="string"/>
+    </extension_attributes>
 </config>
